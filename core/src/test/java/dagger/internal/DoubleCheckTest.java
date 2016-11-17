@@ -18,6 +18,9 @@ package dagger.internal;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.Uninterruptibles;
+
+import co.touchlab.doppel.testing.DoppelHacks;
+import co.touchlab.doppel.testing.PlatformUtils;
 import dagger.Lazy;
 import java.util.List;
 import java.util.Set;
@@ -128,7 +131,11 @@ public class DoubleCheckTest {
     }
   }
 
-  @Test public void reentranceWithoutCondition_throwsStackOverflow() {
+  @Test
+  @DoppelHacks//No stack overflow
+  public void reentranceWithoutCondition_throwsStackOverflow() {
+    if(PlatformUtils.isJ2objc())
+      return;
     final AtomicReference<Provider<Object>> doubleCheckReference =
         new AtomicReference<Provider<Object>>();
     Provider<Object> doubleCheck = DoubleCheck.provider(new Provider<Object>() {
