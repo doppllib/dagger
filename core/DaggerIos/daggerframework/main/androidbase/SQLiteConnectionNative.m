@@ -592,8 +592,8 @@ static enum CopyRowResult copyRow(CursorWindowNative* window,
 }
 
 - (void)dealloc {
-[path release];
-[label release];
+path = nil;
+label = nil;
 [super dealloc];
 }
 

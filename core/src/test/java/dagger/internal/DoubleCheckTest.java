@@ -19,8 +19,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.Uninterruptibles;
 
-import co.touchlab.doppel.testing.DoppelHacks;
-import co.touchlab.doppel.testing.PlatformUtils;
+import co.touchlab.doppl.testing.DopplHacks;
+import co.touchlab.doppl.testing.PlatformUtils;
 import dagger.Lazy;
 import java.util.List;
 import java.util.Set;
@@ -132,7 +132,7 @@ public class DoubleCheckTest {
   }
 
   @Test
-  @DoppelHacks//No stack overflow
+  @DopplHacks//No stack overflow
   public void reentranceWithoutCondition_throwsStackOverflow() {
     if(PlatformUtils.isJ2objc())
       return;

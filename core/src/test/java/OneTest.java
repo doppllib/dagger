@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import co.touchlab.doppel.testing.DopplJunitTestRunner;
+import co.touchlab.doppl.testing.DopplJunitTestHelper;
 
 /**
  * Created by kgalligan on 11/17/16.
@@ -35,20 +35,7 @@ public class OneTest
 
         Class[] classes = smoothClasses.toArray(new Class[smoothClasses.size()]);
 
-        DopplJunitTestRunner.run(classes, new BigMemRunListener(), new DopplJunitTestRunner.DopplJunitListener()
-        {
-            @Override
-            public void startRun(String s)
-            {
-                System.out.println("GO "+ s);
-            }
-
-            @Override
-            public void endRun(String s)
-            {
-                System.out.println("STOP "+ s);
-            }
-        });
+        DopplJunitTestHelper.run(classes);
     }
 
     static class BigMemRunListener extends RunListener
