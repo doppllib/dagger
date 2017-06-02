@@ -1,71 +1,63 @@
-apply from: '../../dopplversions.gradle'
-
 buildscript {
     repositories {
         jcenter()
         maven { url 'https://plugins.gradle.org/m2/' }
-        ivy { url dopplIvyDeploy }
+        maven { url dopplMavenDeploy }
+        maven { url dopplRepo }
     }
     dependencies {
         classpath 'net.ltgt.gradle:gradle-apt-plugin:0.9'
-        classpath "co.touchlab.doppl:gradle:"+ dopplPluginVersion
+        classpath 'co.doppl:gradle:0.7.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
-        ivy { url dopplIvyDeploy }
+        maven { url dopplMavenDeploy }
+        maven { url dopplRepo }
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'ivy-publish'
+apply plugin: 'co.doppl.gradle'
+apply plugin: 'maven-publish'
 apply plugin: 'net.ltgt.apt'
-apply plugin: 'co.touchlab.doppl.gradle'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+def dopplCoreVersion = '0.7.1'
+def dopplTruthVersion = '0.0.1'
+
 dependencies {
     compile 'junit:junit:4.11'
 
-    provided "co.touchlab.doppl:androidbase:$dopplCoreVersion"
-    testCompile "co.touchlab.doppl:androidbasetest:$dopplCoreVersion"
+    provided "co.doppl.lib:androidbase:$dopplCoreVersion"
+    testCompile "co.doppl.lib:androidbasetest:$dopplCoreVersion"
 
-    doppl "co.touchlab.doppl:androidbase:$dopplCoreVersion:doppl"
-    testDoppl "co.touchlab.doppl:androidbasetest:$dopplCoreVersion:doppl"
+    doppl "co.doppl.lib:androidbase:$dopplCoreVersion:doppl"
+    testDoppl "co.doppl.lib:androidbasetest:$dopplCoreVersion:doppl"
 
     testCompile 'org.mockito:mockito-core:1.9.5'
-    testApt "co.touchlab.doppl:testapt:$dopplCoreVersion"
+    testApt "co.doppl.lib:testapt:$dopplCoreVersion"
 
     testCompile "com.google.truth:truth:$dopplTruthVersion"
-    testDoppl "com.google.truth:truth:$dopplTruthVersion:doppl"
+    testDoppl "co.doppl.com.google.truth:truth:$dopplTruthVersion:doppl"
 
     provided 'javax.inject:javax.inject:1'
 
     testCompile 'com.google.guava:guava:19.0'
 }
 
-group = 'com.google.dagger'
-version = dopplDaggerVersion
+group = 'co.doppl.com.google.dagger'
+version = '2.5.0'
 
-publishing {
-    publications {
-        ivy(IvyPublication) {
-            from components.java
-            module 'dagger'
-            artifact(dopplArchive) {
-                classifier 'doppl'
-                extension 'jar'
-            }
-        }
-    }
+ext.bintrayGitUrl = 'https://github.com/doppllib/dagger.git'
 
-    repositories {
-        ivy { url dopplIvyDeploy }
-    }
-}
+apply from: "$dopplSharedScriptHome/doppllibpublish.gradle"
+apply from: "$dopplSharedScriptHome/bintray.gradle"
 
 test{
     enabled = false
@@ -73,8 +65,8 @@ test{
 
 dopplConfig {
 
-    copyMainOutput="iostest/daggerframework/main"
-    copyTestOutput="iostest/daggerframework/test"
+    copyMainOutput "iostest/daggerframework/main"
+    copyTestOutput "iostest/daggerframework/test"
     copyDependencies true
 
 }

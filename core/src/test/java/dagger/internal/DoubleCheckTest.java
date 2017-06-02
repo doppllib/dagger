@@ -20,7 +20,7 @@ import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.Uninterruptibles;
 
 import co.touchlab.doppl.testing.DopplHacks;
-import co.touchlab.doppl.testing.PlatformUtils;
+import co.touchlab.doppl.utils.PlatformUtils;
 import dagger.Lazy;
 import java.util.List;
 import java.util.Set;

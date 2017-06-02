@@ -1,8 +1,3 @@
-import com.google.j2objc.annotations.AutoreleasePool;
-
-import org.junit.runner.Description;
-import org.junit.runner.notification.RunListener;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,44 +10,13 @@ import co.touchlab.doppl.testing.DopplJunitTestHelper;
 
 public class OneTest
 {
-    public static void runTests()
-    {
-        //        runDoppl();
-        new Thread()
-        {
-            @Override
-            public void run()
-            {
-                runDoppl();
-            }
-        }.start();
-    }
-
-    @AutoreleasePool
-    private static void runDoppl()
+    public static int runTests()
     {
         List<Class> smoothClasses = new ArrayList<>(Arrays.asList(alltests));
 
         Class[] classes = smoothClasses.toArray(new Class[smoothClasses.size()]);
 
-        DopplJunitTestHelper.run(classes);
-    }
-
-    static class BigMemRunListener extends RunListener
-    {
-        @Override
-        public void testStarted(Description description) throws Exception
-        {
-            super.testStarted(description);
-            System.out.println("TRACE Starting "+ description.getClassName() + "-" + description.getMethodName() );
-        }
-
-        @Override
-        public void testFinished(Description description) throws Exception
-        {
-            super.testFinished(description);
-            System.out.println("TRACE Finished "+ description.getClassName() + "-" + description.getMethodName() );
-        }
+        return DopplJunitTestHelper.run(classes);
     }
 
     private static Class[] alltests = new Class[] {
