@@ -28,7 +28,7 @@ apply plugin: 'net.ltgt.apt'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-def dopplCoreVersion = '0.7.1'
+def dopplCoreVersion = '0.7.2-SNAPSHOT'
 def dopplTruthVersion = '0.0.1'
 
 dependencies {
@@ -52,7 +52,7 @@ dependencies {
 }
 
 group = 'co.doppl.com.google.dagger'
-version = '2.5.0'
+version = '2.5.1-SNAPSHOT'
 
 ext.bintrayGitUrl = 'https://github.com/doppllib/dagger.git'
 
