@@ -13,7 +13,7 @@ iOS development with J2objc using the [Doppl build framework](http://doppl.co/).
 dependencies {
   compile 'com.google.dagger:dagger:2.5'
   annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
-  doppl 'co.doppl.com.google.dagger:dagger:2.5.2'
+  doppl 'co.doppl.com.google.dagger:dagger:2.5.3'
 }
 ```
 
