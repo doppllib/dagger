@@ -1,106 +1,27 @@
-# Dagger 2
+# Doppl Fork
 
-A fast dependency injector for Android and Java.
+This is a fork of the Dagger 2 library to provide tests and modifications to support
+iOS development with J2objc using the [Doppl build framework](http://doppl.co/).
 
-## About Google's Fork
+## Versions
 
-Dagger 2 is a compile-time evolution approach to dependency injection.
-Taking the approach started in Dagger 1.x to its ultimate conclusion,
-Dagger 2.x eliminates all reflection, and improves code clarity by
-removing the traditional ObjectGraph/Injector in favor of user-specified
-`@Component` interfaces.
+[2.5](https://github.com/doppllib/dagger/tree/dpv2.5)
 
-This github project represents the Dagger 2 development stream.  The earlier
-[project page][square] (Square, Inc's repository) represents the earlier 1.0
-development stream. Both versions have benefitted from strong involvement from
-Square, Google, and other contributors.
+## Usage
 
-> [Dagger 2's main documentation website can be found here.][website]
+```groovy
+dependencies {
+  compile 'com.google.dagger:dagger:2.5'
+  annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
+  doppl 'co.doppl.com.google.dagger:dagger:2.5.3'
+}
+```
+
+See [Party Clicker](https://github.com/doppllib/PartyClickerSample) for an example of usage.
 
 ## Status
 
-  - ***Release Version:* 2.2**
-  - ***Snapshot Version:* 2.3-SNAPSHOT**
-
-Dagger is currently in active development, primarily internally at Google,
-with regular pushes to the open-source community. Snapshot releases are
-auto-deployed to sonatype's central maven repository on a clean build with
-the version `2.3-SNAPSHOT`.
-
-## Documentation
-
-You can [find the dagger documentation here][website] which has extended usage
-instructions and other useful information.  Substantial usage information can be
-found in the [API documentation][20api].
-
-You can also learn more from [the original proposal][proposal],
-[this talk by Greg Kick][gaktalk], and on the dagger-discuss@googlegroups.com
-mailing list.
-
-## Installation
-
-You will need to include the `dagger-2.1.jar` in your application's runtime.
-In order to activate code generation and generate implementations to manage
-your graph you will need to include `dagger-compiler-2.1.jar` in your build
-at compile time.
-
-In a Maven project, include the `dagger` artifact in the dependencies section
-of your `pom.xml` and the `dagger-compiler` artifact as either an `optional` or
-`provided` dependency:
-
-```xml
-<dependencies>
-  <dependency>
-    <groupId>com.google.dagger</groupId>
-    <artifactId>dagger</artifactId>
-    <version>2.2</version>
-  </dependency>
-  <dependency>
-    <groupId>com.google.dagger</groupId>
-    <artifactId>dagger-compiler</artifactId>
-    <version>2.2</version>
-    <optional>true</optional>
-  </dependency>
-</dependencies>
-```
-
-If you use the beta `dagger-producers` extension (which supplies
-parallelizable execution graphs), then add this to your maven configuration:
-
-```xml
-<dependencies>
-  <dependency>
-    <groupId>com.google.dagger</groupId>
-    <artifactId>dagger-producers</artifactId>
-    <version>2.2</version>
-  </dependency>
-</dependencies>
-```
-
-
-### Download
-
-  * 2.x (google/dagger)
-    * [Dagger 2.0 Documentation][website]
-    * [Dagger 2.0 Javadocs][20api]
-    * [Dagger development Javadocs][latestapi] (from the `master` branch
-      on GitHub)
-    * [Google's Dagger project site on GitHub][project]
-    * <a href="https://plus.google.com/118328287768685565185"
-         rel="publisher">Google+ Dagger Project Page</a>
-    * [Google+ Dagger Users Community][community]
-  * 1.x (square/dagger)
-    * [Square's original Dagger project site on GitHub][square]
-    * [Square Open Source Community][squarecommunity]
-
-
-If you do not use maven, gradle, ivy, or other build systems that consume
-maven-style binary artifacts, they can be downloaded directly via the
-[Maven Central Repository][mavensearch].
-
-Developer snapshots are available from Sonatype's
-[snapshot repository][dagger-snap], and are built on a clean build of
-the GitHub project's master branch.
+Stable. No known memory issues. Only the runtime is needed, so this project has a relatively light output and testing.
 
 ## License
 
@@ -132,4 +53,3 @@ the GitHub project's master branch.
  [community]: https://plus.google.com/communities/111933036769103367883
  [square]: http://github.com/square/dagger/
  [squarecommunity]: https://plus.google.com/communities/109244258569782858265
-
