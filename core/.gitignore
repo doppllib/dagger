@@ -145,3 +145,5 @@ fastlane/test_output
 
 #Because ugh
 .DS_Store
+
+local.properties
