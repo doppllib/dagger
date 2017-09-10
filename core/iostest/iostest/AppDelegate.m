@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "OneTest.h"
+#import "CoTouchlabDopplTestingDopplJunitTestHelper.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-//    [OneTest runTests];
+    [CoTouchlabDopplTestingDopplJunitTestHelper runResourceWithNSString:@"dopplTests.txt"];
     return YES;
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "OneTest.h"
+#import "CoTouchlabDopplTestingDopplJunitTestHelper.h"
 
 @interface iostestTests : XCTestCase
 
@@ -16,7 +16,7 @@
 @implementation iostestTests
 
 - (void)testExample {
-    XCTAssertEqual([OneTest runTests], 0, "Junit tests failed");
+    XCTAssertEqual([CoTouchlabDopplTestingDopplJunitTestHelper runResourceWithNSString:@"dopplTests.txt"], 0, "Junit tests failed");
 }
 
 @end
