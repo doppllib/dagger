@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         classpath 'net.ltgt.gradle:gradle-apt-plugin:0.9'
-        classpath 'co.doppl:gradle:0.8.5'
+        classpath 'co.doppl:gradle:0.8.7'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
@@ -28,10 +28,10 @@ apply plugin: 'net.ltgt.apt'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-def javaCoreVersion = '0.8.3'
-def dopplCoreVersion = '0.8.3.0'
+def javaCoreVersion = '0.8.4'
+def dopplCoreVersion = '0.8.4.0'
 
-def dopplTruthVersion = '0.0.3'
+def dopplTruthVersion = '0.0.4'
 
 dependencies {
     testCompile 'junit:junit:4.11'
@@ -50,7 +50,7 @@ dependencies {
 }
 
 group = 'co.doppl.com.google.dagger'
-version = '2.5.5'
+version = '2.5.6'
 
 ext.bintrayGitUrl = 'https://github.com/doppllib/dagger.git'
 
@@ -73,5 +73,5 @@ task runIOSTests(type:Exec, dependsOn: 'dopplDeploy') {
     workingDir 'iostest'
 
     //on windows:
-    commandLine 'xcodebuild', 'test', '-project', 'iostest.xcodeproj', '-scheme', 'iostest', '-destination', 'platform=iOS Simulator,name=iPhone 7,OS=10.3.1'
+    commandLine 'xcodebuild', 'test', '-project', 'iostest.xcodeproj', '-scheme', 'iostest', '-destination', 'platform=iOS Simulator,name=iPhone 7,OS=11.0'
 }
