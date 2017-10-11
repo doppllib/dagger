@@ -1,187 +1,32 @@
-# Dagger 2
+# Doppl Fork
 
-[![Maven Central][mavenbadge-svg]][mavenbadge]
+This is a fork of the Dagger 2 library to provide tests and modifications to support
+iOS development with J2objc using the [Doppl build framework](http://doppl.co/).
 
-A fast dependency injector for Android and Java.
+## Versions
 
-## About Google's Fork
+[2.5](https://github.com/doppllib/dagger/tree/dpv2.5)
 
-Dagger 2 is a compile-time evolution approach to dependency injection.
-Taking the approach started in Dagger 1.x to its ultimate conclusion,
-Dagger 2.x eliminates all reflection, and improves code clarity by
-removing the traditional ObjectGraph/Injector in favor of user-specified
-`@Component` interfaces.
+## Usage
 
-This github project represents the Dagger 2 development stream.  The earlier
-[project page][square] (Square, Inc's repository) represents the earlier 1.0
-development stream. Both versions have benefitted from strong involvement from
-Square, Google, and other contributors.
-
-Dagger is currently in active development, primarily internally at Google,
-with regular pushes to the open-source community. Snapshot releases are
-auto-deployed to sonatype's central maven repository on every clean build with
-the version `HEAD-SNAPSHOT`.
-
-> [Dagger 2's main documentation website can be found here.][website]
-
-## Documentation
-
-You can [find the dagger documentation here][website] which has extended usage
-instructions and other useful information.  Substantial usage information can be
-found in the [API documentation][20api].
-
-You can also learn more from [the original proposal][proposal],
-[this talk by Greg Kick][gaktalk], and on the dagger-discuss@googlegroups.com
-mailing list.
-
-## Installation
-
-You will need to include the `dagger-2.x.jar` in your application's runtime.
-In order to activate code generation and generate implementations to manage
-your graph you will need to include `dagger-compiler-2.x.jar` in your build
-at compile time.
-
-### Maven
-
-In a Maven project, include the `dagger` artifact in the dependencies section
-of your `pom.xml` and the `dagger-compiler` artifact as an
-`annotationProcessorPaths` value of the `maven-compiler-plugin`:
-
-```xml
-<dependencies>
-  <dependency>
-    <groupId>com.google.dagger</groupId>
-    <artifactId>dagger</artifactId>
-    <version>2.x</version>
-  </dependency>
-</dependencies>
-<build>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.6.1</version>
-      <configuration>
-        <annotationProcessorPaths>
-          <path>
-            <groupId>com.google.dagger</groupId>
-            <artifactId>dagger-compiler</artifactId>
-            <version>2.x</version>
-          </path>
-        </annotationProcessorPaths>
-      </configuration>
-    </plugin>
-  </plugins>
-</build>
-```
-
-If you are using a version of the `maven-compiler-plugin` lower than `3.5`, add
-the `dagger-compiler` artifact with the `provided` scope:
-
-```xml
-<dependencies>
-  <dependency>
-    <groupId>com.google.dagger</groupId>
-    <artifactId>dagger</artifactId>
-    <version>2.x</version>
-  </dependency>
-  <dependency>
-    <groupId>com.google.dagger</groupId>
-    <artifactId>dagger-compiler</artifactId>
-    <version>2.x</version>
-    <scope>provided</scope>
-  </dependency>
-</dependencies>
-```
-
-If you use the beta `dagger-producers` extension (which supplies
-parallelizable execution graphs), then add this to your maven configuration:
-
-```xml
-<dependencies>
-  <dependency>
-    <groupId>com.google.dagger</groupId>
-    <artifactId>dagger-producers</artifactId>
-    <version>2.x</version>
-  </dependency>
-</dependencies>
-```
-
-### Java Gradle
 ```groovy
-// Add plugin https://plugins.gradle.org/plugin/net.ltgt.apt
-plugins {
-  id "net.ltgt.apt" version "0.10"
-}
-
-// Add Dagger dependencies
 dependencies {
-  compile 'com.google.dagger:dagger:2.x'
-  apt 'com.google.dagger:dagger-compiler:2.x'
+  compile 'com.google.dagger:dagger:2.5'
+  annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
+  doppl 'co.doppl.com.google.dagger:dagger:2.5.4'
 }
 ```
 
-### Android Gradle
-```groovy
-// Add Dagger dependencies
-dependencies {
-  compile 'com.google.dagger:dagger:2.x'
-  annotationProcessor 'com.google.dagger:dagger-compiler:2.x'
-}
-```
+See [Party Clicker](https://github.com/doppllib/PartyClickerSample) for an example of usage.
 
-If you're using classes in `dagger.android` you'll also want to include:
+## Status
 
-```groovy
-compile 'com.google.dagger:dagger-android:2.x'
-compile 'com.google.dagger:dagger-android-support:2.x' // if you use the support libraries
-annotationProcessor 'com.google.dagger:dagger-android-processor:2.x'
-```
-
-If you're using a version of the Android gradle plugin below `2.2`, see
-https://bitbucket.org/hvisser/android-apt.
-
-If you're using the [Android Databinding library][databinding], you may want to
-increase the number of errors that `javac` will print. When Dagger prints an
-error, databinding compilation will halt and sometimes print more than 100
-errors, which is the default amount for `javac`. For more information, see
-[Issue 306](https://github.com/google/dagger/issues/306).
-
-```groovy
-gradle.projectsEvaluated {
-  tasks.withType(JavaCompile) {
-    options.compilerArgs << "-Xmaxerrs" << "500" // or whatever number you want
-  }
-}
-```
-
-### Download
-
-  * 2.x (google/dagger)
-    * [Dagger 2.0 Documentation][website]
-    * [Dagger 2.0 Javadocs][20api]
-    * [Dagger development Javadocs][latestapi] (from the `master` branch
-      on GitHub)
-    * [Google's Dagger project site on GitHub][project]
-    * <a href="https://plus.google.com/118328287768685565185"
-         rel="publisher">Google+ Dagger Project Page</a>
-    * [Google+ Dagger Users Community][community]
-  * 1.x (square/dagger)
-    * [Square's original Dagger project site on GitHub][square]
-    * [Square Open Source Community][squarecommunity]
-
-
-If you do not use maven, gradle, ivy, or other build systems that consume
-maven-style binary artifacts, they can be downloaded directly via the
-[Maven Central Repository][mavensearch].
-
-Developer snapshots are available from Sonatype's
-[snapshot repository][dagger-snap], and are built on a clean build of
-the GitHub project's master branch.
+Stable. No known memory issues. Only the runtime is needed, so this project has a relatively light output and testing.
 
 ## License
 
-    Copyright 2012 The Dagger Authors
+    Copyright 2012 Square, Inc.
+    Copyright 2012 Google, Inc.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -194,6 +39,8 @@ the GitHub project's master branch.
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+
 
 [20api]: https://google.github.io/dagger/api/2.0/
 [community]: https://plus.google.com/communities/111933036769103367883
