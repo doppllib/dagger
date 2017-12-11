@@ -3,25 +3,21 @@
 This is a fork of the Dagger 2 library to provide tests and modifications to support
 iOS development with J2objc using the [Doppl build framework](http://doppl.co/).
 
-## Versions
-
-[2.5](https://github.com/doppllib/dagger/tree/dpv2.5)
-
 ## Usage
 
 ```groovy
 dependencies {
   compile 'com.google.dagger:dagger:2.5'
   annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
-  doppl 'co.doppl.com.google.dagger:dagger:2.5.4'
+  doppl 'co.doppl.com.google.dagger:dagger:2.5.7'
 }
 ```
-
-See [Party Clicker](https://github.com/doppllib/PartyClickerSample) for an example of usage.
 
 ## Status
 
 Stable. No known memory issues. Only the runtime is needed, so this project has a relatively light output and testing.
+
+Version 2.5 is relatively old. Current dagger has moved to bazel, so an update will be manual.
 
 ## License
 

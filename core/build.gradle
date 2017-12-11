@@ -1,4 +1,5 @@
 buildscript {
+    def doppl_gradle_version = doppl_gradle
     repositories {
         jcenter()
         maven { url 'https://plugins.gradle.org/m2/' }
@@ -7,7 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'net.ltgt.gradle:gradle-apt-plugin:0.9'
-        classpath 'co.doppl:gradle:0.8.7'
+        classpath "co.doppl:gradle:${doppl_gradle_version}"
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
@@ -28,18 +29,20 @@ apply plugin: 'net.ltgt.apt'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-def javaCoreVersion = '0.8.4'
-def dopplCoreVersion = '0.8.4.0'
+def javaCoreVersion = doppl_core_java
+def dopplCoreVersion = doppl_core_doppl
 
-def dopplTruthVersion = '0.0.4'
+def dopplTruthVersion = doppl_truth_doppl
 
 dependencies {
-    testCompile 'junit:junit:4.11'
+    testCompile "junit:junit:$doppl_junit_java"
+    testDoppl "co.doppl.junit:junit:$doppl_junit_doppl"
 
     testCompile "co.doppl.lib:androidbasetest:$javaCoreVersion"
     testDoppl "co.doppl.lib:androidbasetest:$dopplCoreVersion"
 
-    testCompile 'org.mockito:mockito-core:1.9.5'
+    testCompile "org.mockito:mockito-core:$doppl_mockito_java"
+    testDoppl "co.doppl.org.mockito:mockito-core:$doppl_mockito_doppl"
     testApt "co.doppl.lib:testapt:$javaCoreVersion"
 
     testCompile "com.google.truth:truth:0.30"
@@ -50,7 +53,7 @@ dependencies {
 }
 
 group = 'co.doppl.com.google.dagger'
-version = '2.5.6'
+version = doppl_dagger_doppl
 
 ext.bintrayGitUrl = 'https://github.com/doppllib/dagger.git'
 
@@ -63,13 +66,9 @@ test{
 
 dopplConfig {
 
-    copyMainOutput "iostest/daggerframework/main"
-    copyTestOutput "iostest/daggerframework/test"
-    copyDependencies true
-
 }
 
-task runIOSTests(type:Exec, dependsOn: 'dopplDeploy') {
+task runIOSTests(type:Exec, dependsOn: 'dopplBuild') {
     workingDir 'iostest'
 
     //on windows:
