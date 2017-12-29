@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Google, Inc.
+ * Copyright (C) 2016 The Dagger Authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package dagger.internal;
+
+import static dagger.internal.Preconditions.checkNotNull;
 
 import dagger.Lazy;
 import javax.inject.Provider;
-
-import static dagger.internal.Preconditions.checkNotNull;
 
 /**
  * A {@link Lazy} and {@link Provider} implementation that memoizes the value returned from a
@@ -50,7 +51,8 @@ public final class DoubleCheck<T> implements Provider<T>, Lazy<T> {
           Object currentInstance = instance;
           if (currentInstance != UNINITIALIZED && currentInstance != result) {
             throw new IllegalStateException("Scoped provider was invoked recursively returning "
-                + "different results: " + currentInstance + " & " + result);
+                + "different results: " + currentInstance + " & " + result + ". This is likely "
+                + "due to a circular dependency.");
           }
           instance = result;
           /* Null out the reference to the provider. We are never going to need it again, so we
@@ -63,7 +65,9 @@ public final class DoubleCheck<T> implements Provider<T>, Lazy<T> {
   }
 
   /** Returns a {@link Provider} that caches the value from the given delegate provider. */
-  public static <T> Provider<T> provider(Provider<T> delegate) {
+  // This method is declared this way instead of "<T> Provider<T> provider(Provider<T> delegate)"
+  // to work around an Eclipse type inference bug: https://github.com/google/dagger/issues/949.
+  public static <P extends Provider<T>, T> Provider<T> provider(P delegate) {
     checkNotNull(delegate);
     if (delegate instanceof DoubleCheck) {
       /* This should be a rare case, but if we have a scoped @Binds that delegates to a scoped
@@ -74,7 +78,9 @@ public final class DoubleCheck<T> implements Provider<T>, Lazy<T> {
   }
 
   /** Returns a {@link Lazy} that caches the value from the given provider. */
-  public static <T> Lazy<T> lazy(Provider<T> provider) {
+  // This method is declared this way instead of "<T> Lazy<T> lazy(Provider<T> delegate)"
+  // to work around an Eclipse type inference bug: https://github.com/google/dagger/issues/949.
+  public static <P extends Provider<T>, T> Lazy<T> lazy(P provider) {
     if (provider instanceof Lazy) {
       @SuppressWarnings("unchecked")
       final Lazy<T> lazy = (Lazy<T>) provider;

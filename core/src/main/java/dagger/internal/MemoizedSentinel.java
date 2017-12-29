@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Dagger Authors.
+ * Copyright (C) 2017 The Dagger Authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,7 @@
  * limitations under the License.
  */
 
-package dagger.multibindings;
+package dagger.internal;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import dagger.MapKey;
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-/** A {@link MapKey} annotation for maps with {@code int} keys. */
-@Documented
-@Target(METHOD)
-@Retention(RUNTIME)
-@MapKey
-public @interface IntKey {
-  int value();
-}
+/** A sentinel used to memoize a scoped binding in a component. */
+public final class MemoizedSentinel {}

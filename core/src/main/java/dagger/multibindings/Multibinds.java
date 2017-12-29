@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Google, Inc.
+ * Copyright (C) 2015 The Dagger Authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package dagger.multibindings;
 
-import dagger.internal.Beta;
-import java.lang.annotation.Documented;
-import java.lang.annotation.Target;
-
 import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
 /**
  * Annotates abstract module methods that declare multibindings.
@@ -32,10 +34,10 @@ import static java.lang.annotation.ElementType.METHOD;
  *
  * <pre><code>
  *   {@literal @Module} abstract class MyModule {
- *     {@literal @Multibinds Set<Foo> aSet();}
- *     {@literal @Multibinds @MyQualifier Set<Foo> aQualifiedSet();}
- *     {@literal @Multibinds Map<String, Foo> aMap();}
- *     {@literal @Multibinds @MyQualifier Map<String, Foo> aQualifiedMap();}
+ *     {@literal @Multibinds abstract Set<Foo> aSet();}
+ *     {@literal @Multibinds abstract @MyQualifier Set<Foo> aQualifiedSet();}
+ *     {@literal @Multibinds abstract Map<String, Foo> aMap();}
+ *     {@literal @Multibinds abstract @MyQualifier Map<String, Foo> aQualifiedMap();}
  *
  *     {@literal @Provides}
  *     {@literal static Object usesMultibindings(Set<Foo> set, @MyQualifier Map<String, Foo> map}) {
@@ -44,11 +46,11 @@ import static java.lang.annotation.ElementType.METHOD;
  *   }</code></pre>
  *
  * <p>A given set or map multibinding can be declared any number of times without error. Dagger
- * never implements calls any {@code @Multibinds} methods.
+ * never implements or calls any {@code @Multibinds} methods.
  *
- * @see <a href="http://google.github.io/dagger/multibindings">Multibindings</a>
+ * @see <a href="https://google.github.io/dagger/multibindings">Multibindings</a>
  */
 @Documented
 @Target(METHOD)
-@Beta
+@Retention(RUNTIME)
 public @interface Multibinds {}

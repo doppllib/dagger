@@ -26,8 +26,8 @@ apply plugin: 'co.doppl.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'net.ltgt.apt'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 def javaCoreVersion = doppl_core_java
 def dopplCoreVersion = doppl_core_doppl
@@ -50,6 +50,10 @@ dependencies {
 
     compile 'javax.inject:javax.inject:1'
     testCompile 'com.google.guava:guava:19.0'
+
+//    testCompile "com.google.auto.value:auto-value:1.5"
+//    testApt         "com.google.auto.value:auto-value:1.5"
+    testApt "com.google.dagger:dagger-compiler:$doppl_dagger_java"
 }
 
 group = 'co.doppl.com.google.dagger'
@@ -65,7 +69,7 @@ test{
 }
 
 dopplConfig {
-
+    javaDebug true
 }
 
 task runIOSTests(type:Exec, dependsOn: 'dopplBuild') {

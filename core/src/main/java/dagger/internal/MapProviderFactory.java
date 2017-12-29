@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 Google, Inc.
+ * Copyright (C) 2014 The Dagger Authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package dagger.internal;
 
-import java.util.Collections;
+import static dagger.internal.DaggerCollections.newLinkedHashMapWithExpectedSize;
+import static dagger.internal.Preconditions.checkNotNull;
+import static java.util.Collections.unmodifiableMap;
+
+import dagger.Lazy;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.inject.Provider;
-
-import static dagger.internal.DaggerCollections.newLinkedHashMapWithExpectedSize;
-import static java.util.Collections.unmodifiableMap;
 
 /**
  * A {@link Factory} implementation used to implement {@link Map} bindings. This factory returns a
@@ -29,27 +31,16 @@ import static java.util.Collections.unmodifiableMap;
  *
  * @author Chenying Hou
  * @since 2.0
- *
  */
-public final class MapProviderFactory<K, V> implements Factory<Map<K, Provider<V>>> {
-  private static final MapProviderFactory<Object, Object> EMPTY =
-      new MapProviderFactory<Object, Object>(Collections.<Object, Provider<Object>>emptyMap());
-
+public final class MapProviderFactory<K, V>
+    implements Factory<Map<K, Provider<V>>>, Lazy<Map<K, Provider<V>>> {
   private final Map<K, Provider<V>> contributingMap;
 
   /**
    * Returns a new {@link Builder}
    */
   public static <K, V> Builder<K, V> builder(int size) {
-    return new Builder<K, V>(size);
-  }
-
-  /**
-   * Returns a factory of an empty map.
-   */
-  @SuppressWarnings("unchecked") // safe contravariant cast
-  public static <K, V> MapProviderFactory<K, V> empty() {
-    return (MapProviderFactory<K, V>) EMPTY;
+    return new Builder<>(size);
   }
 
   private MapProviderFactory(Map<K, Provider<V>> contributingMap) {
@@ -66,37 +57,23 @@ public final class MapProviderFactory<K, V> implements Factory<Map<K, Provider<V
     return this.contributingMap;
   }
 
-  /**
-   * A builder to help build the {@link MapProviderFactory}
-   */
+  /** A builder for {@link MapProviderFactory}. */
   public static final class Builder<K, V> {
-    private final LinkedHashMap<K, Provider<V>> mapBuilder;
+    private final LinkedHashMap<K, Provider<V>> map;
 
     private Builder(int size) {
-      // TODO(user): consider which way to initialize mapBuilder is better
-      this.mapBuilder = newLinkedHashMapWithExpectedSize(size);
+      this.map = newLinkedHashMapWithExpectedSize(size);
     }
 
-    /**
-     * Returns a new {@link MapProviderFactory}
-     */
-    public MapProviderFactory<K, V> build() {
-      return new MapProviderFactory<K, V>(this.mapBuilder);
-    }
-
-    /**
-     * Associate k with providerOfValue in {@code Builder}
-     */
+    /** Associates {@code key} with {@code providerOfValue}. */
     public Builder<K, V> put(K key, Provider<V> providerOfValue) {
-      if (key == null) {
-        throw new NullPointerException("The key is null");
-      }
-      if (providerOfValue == null) {
-        throw new NullPointerException("The provider of the value is null");
-      }
-
-      this.mapBuilder.put(key, providerOfValue);
+      map.put(checkNotNull(key, "key"), checkNotNull(providerOfValue, "provider"));
       return this;
+    }
+
+    /** Returns a new {@link MapProviderFactory}. */
+    public MapProviderFactory<K, V> build() {
+      return new MapProviderFactory<>(map);
     }
   }
 }

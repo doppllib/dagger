@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Dagger Authors.
+ * Copyright (C) 2016 The Dagger Authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package dagger.multibindings;
-
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import dagger.MapKey;
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-/** A {@link MapKey} annotation for maps with {@code int} keys. */
-@Documented
-@Target(METHOD)
-@Retention(RUNTIME)
-@MapKey
-public @interface IntKey {
-  int value();
-}
+/**
+ * This package contains the API by which Dagger allows you <a
+ * href="https://google.github.io/dagger/users-guide.html#releasable-references">release references</a> held within
+ * some scopes.
+ *
+ * <p><b>Note:</b>Releasable references uses Java's {@link java.lang.ref.WeakReference}, and so is
+ * not compatible with <a href="http://www.gwtproject.org/">GWT</a>.
+ *
+ * @since 2.8
+ */
+package dagger.releasablereferences;

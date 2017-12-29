@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The Dagger Authors.
+ * Copyright (C) 2017 The Dagger Authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,26 +16,45 @@
 
 package dagger.internal;
 
-import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
 
+import java.util.Arrays;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
-public final class InstanceFactoryTest {
-  @Test public void instanceFactory() {
-    Object instance = new Object();
-    Factory<Object> factory = InstanceFactory.create(instance);
-    assertThat(factory.get()).isEqualTo(instance);
-    assertThat(factory.get()).isEqualTo(instance);
-    assertThat(factory.get()).isEqualTo(instance);
+public class SetBuilderTest {
+  private SetBuilder<String> setBuilder;
+
+  @Before
+  public void setUp() {
+    setBuilder = SetBuilder.newSetBuilder(1);
   }
 
-  @Test public void create_throwsNullPointerException() {
+  @Test
+  public void addNull() {
     try {
-      InstanceFactory.create(null);
+      setBuilder.add(null);
+      fail();
+    } catch (NullPointerException expected) {
+    }
+  }
+
+  @Test
+  public void addNullCollection() {
+    try {
+      setBuilder.addAll(null);
+      fail();
+    } catch (NullPointerException expected) {
+    }
+  }
+
+  @Test
+  public void addNullElement() {
+    try {
+      setBuilder.addAll(Arrays.asList("hello", null, "world"));
       fail();
     } catch (NullPointerException expected) {
     }

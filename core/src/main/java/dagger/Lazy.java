@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2012 Google, Inc.
- * Copyright (C) 2012 Square, Inc.
+ * Copyright (C) 2012 The Dagger Authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package dagger;
 
 /**
  * A handle to a lazily-computed value. Each {@code Lazy} computes its value on
- * the first call to {@code get()} and remembers that same value for all
+ * the first call to {@link #get()} and remembers that same value for all
  * subsequent calls to {@code get()}.
+ *
+ * <p>All implementations are expected to be thread-safe and compute their value at most once.
  *
  * <h2>Example</h2>
  * The differences between <strong>direct injection</strong>, <strong>provider

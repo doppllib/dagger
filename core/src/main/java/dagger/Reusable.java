@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Google, Inc.
+ * Copyright (C) 2016 The Dagger Authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package dagger;
+
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import dagger.internal.Beta;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import javax.inject.Scope;
-
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * A scope that indicates that the object returned by a binding may be (but might not be) reused.
@@ -28,7 +29,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * <p>{@code @Reusable} is useful when you want to limit the number of provisions of a type, but
  * there is no specific lifetime over which there must be only one instance.
  *
- * @see <a href="http://google.github.io/dagger/users-guide.html#reusable-scope">Reusable Scope</a>
+ * @see <a href="https://google.github.io/dagger/users-guide.html#reusable-scope">Reusable Scope</a>
  */
 @Documented
 @Beta

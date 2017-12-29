@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2012 Square, Inc.
- * Copyright (C) 2009 Google Inc.
+ * Copyright (C) 2012 The Dagger Authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package dagger;
 
 /**
@@ -33,9 +33,9 @@ public interface MembersInjector<T> {
    * Injects dependencies into the fields and methods of {@code instance}. Ignores the presence or
    * absence of an injectable constructor.
    *
-   * <p>Whenever the object graph creates an instance, it performs this injection automatically
-   * (after first performing constructor injection), so if you're able to let the object graph
-   * create all your objects for you, you'll never need to use this method.
+   * <p>Whenever a {@link Component} creates an instance, it performs this injection automatically
+   * (after first performing constructor injection), so if you're able to let the component create
+   * all your objects for you, you'll never need to use this method.
    *
    * @param instance into which members are to be injected
    * @throws NullPointerException if {@code instance} is {@code null}
